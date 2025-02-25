@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/api/tasks', async (req, res) => {
   try {
-    const tasks = await db.Task.findAll(); // Correct reference to Task model
+    const tasks = await db.Task.findAll();
     res.json(tasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);
@@ -25,7 +25,7 @@ app.get('/api/tasks', async (req, res) => {
 app.post('/api/tasks', async (req, res) => {
   try {
     const { name } = req.body;
-    const existing = await db.Task.findOne({ where: { name } }); // Use where clause to find by name
+    const existing = await db.Task.findOne({ where: { name } });
     if (existing) {
       return res.status(400).json({ success: false, message: 'The task with name already exists!' });
     }
@@ -38,14 +38,35 @@ app.post('/api/tasks', async (req, res) => {
 });
 
 app.delete('/api/delete', async (req, res) => {
-    try {
-      const { id } = req.query;
-      const task = await db.Task.destroy({ where: { id } }); // Correct function for deletion
-      res.json({ success: true, message: 'Task deleted successfully', task });
-    } catch (error) {
-      console.error('Error deleting task:', error);
-      res.status(500).json({ success: false, message: 'Failed to delete task' });
+  try {
+    const { id } = req.query;
+    const result = await db.Task.destroy({ where: { id } });
+    if (result === 0) {
+      return res.status(404).json({ success: false, message: 'Task not found' });
     }
+    res.json({ success: true, message: 'Task deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).json({ success: false, message: 'Failed to delete task' });
+  }
+});
+
+app.put('/api/tasks', async (req, res) => {
+  try {
+    const { id } = req.query;
+    
+    const { completed } = req.body;
+    const task = await db.Task.findByPk(id);
+    if (!task) {
+      return res.status(404).json({ success: false, message: 'Task not found' });
+    }
+    task.completed = completed;
+    await task.save();
+    res.json({ success: true, task });
+  } catch (error) {
+    console.error('Error updating task:', error);
+    res.status(500).json({ success: false, message: 'Failed to update task' });
+  }
 });
 
 app.listen(PORT, () => {
