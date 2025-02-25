@@ -1,0 +1,90 @@
+.taskList-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Added to center children horizontally */
+    margin-top: 24px;
+    perspective: 1000px;
+  }
+  
+  .task-card {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(244, 244, 244, 0.8));
+    backdrop-filter: blur(8px);
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(37, 36, 36, 0.2);
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Ensures the card takes full available width */
+    max-width: 540px; /* Optional: limits card width for consistency */
+  }
+  
+  .task-card:hover {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 1), rgba(230, 230, 230, 0.9));
+    transform: translateZ(10px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  }
+  
+  .task-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #007bff, #00c4ff);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .task-card:hover::before {
+    opacity: 1;
+  }
+  
+  .task-checkbox {
+    margin-right: 12px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    accent-color: #007bff;
+    transition: transform 0.2s ease;
+  }
+  
+  .task-checkbox:hover {
+    transform: scale(1.1);
+  }
+  
+  .task-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .task-name {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    background: linear-gradient(to right, #333, #555);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .task-date {
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #666;
+    margin-top: 4px;
+    font-weight: 400;
+    background: linear-gradient(to right, #888, #aaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
