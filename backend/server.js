@@ -54,11 +54,11 @@ app.delete('/api/delete', async (req, res) => {
 app.put('/api/tasks', async (req, res) => {
   try {
     const { id } = req.query;
-    
     const { completed } = req.body;
     const task = await db.Task.findByPk(id);
     if (!task) {
       return res.status(404).json({ success: false, message: 'Task not found' });
+
     }
     task.completed = completed;
     await task.save();

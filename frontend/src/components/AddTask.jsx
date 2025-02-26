@@ -38,6 +38,7 @@ const Header = ({fetchHandler}) => {
         setTasks([...tasks, response.data]);
         fetchHandler();
         toast.success("Task added successfully!");
+        setTaskName(""); 
       })
       .catch((error) => {
         if (error.response && error.response.status === 400) {

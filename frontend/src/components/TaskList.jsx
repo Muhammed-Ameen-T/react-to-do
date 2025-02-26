@@ -66,7 +66,7 @@ const TaskList = ({isFetched}) => {
             <FontAwesomeIcon icon={faTrashAlt} />
           </button>
         </div>
-      ))};
+      ))}
     </div>
   );
 };

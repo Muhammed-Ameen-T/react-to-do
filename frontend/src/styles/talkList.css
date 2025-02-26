@@ -1,9 +1,14 @@
 .taskList-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Added to center children horizontally */
+  align-items: center;
   margin-top: 24px;
   perspective: 1000px;
+  max-height: 585px;
+  overflow-y: auto; 
+  width: 100%; 
+  padding: 0 10px; 
+  box-sizing: border-box; 
 }
 
 .task-card {
@@ -19,8 +24,11 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  width: 100%; /* Ensures the card takes full available width */
-  max-width: 540px; /* Optional: limits card width for consistency */
+  width: 100%; /* Takes full width of the container */
+  max-width: 620px; /* Consistent maximum width */
+  min-width: 0; /* Prevents flex shrinkage */
+  flex-shrink: 0; /* Ensures card doesn’t shrink in flex context */
+  box-sizing: border-box; /* Includes padding/border in width calculation */
 }
 
 .task-card:hover {
